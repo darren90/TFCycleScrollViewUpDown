@@ -40,12 +40,14 @@
     UIImageView *iconView = [[UIImageView alloc]init];
     self.iconView = iconView;
     [self addSubview:iconView];
-    iconView.contentMode = UIViewContentModeScaleAspectFill;
+    iconView.contentMode = UIViewContentModeScaleAspectFit;
     iconView.clipsToBounds = YES;
+    iconView.image = [UIImage imageNamed:@"icon_)"];
     
     UILabel *titleLabel = [[UILabel alloc]init];
     self.titleLabe = titleLabel;
     [self addSubview:titleLabel];
+    titleLabel.textAlignment = NSTextAlignmentLeft;
 }
 
 -(void)layoutSubviews
@@ -55,14 +57,17 @@
     CGFloat w = self.frame.size.width;
     CGFloat h = self.frame.size.height;
     
-    self.iconView.frame = self.bounds;
+//    self.titleLabe.center
+    self.titleLabe.frame = CGRectMake(10, 0, w-40, h);
+    
+    self.iconView.frame = CGRectMake(CGRectGetMaxX(self.titleLabe.frame), 0, 30, h);
 }
 
 -(void)setModel:(TFCycleScrollModel *)model
 {
     _model = model;
     
-    [self.iconView sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] placeholderImage:[UIImage imageNamed:self.placeholderImage]];
+//    [self.iconView sd_setImageWithURL:[NSURL URLWithString:model.imgUrl] placeholderImage:[UIImage imageNamed:self.placeholderImage]];
     self.titleLabe.text = model.tittle;
 }
 

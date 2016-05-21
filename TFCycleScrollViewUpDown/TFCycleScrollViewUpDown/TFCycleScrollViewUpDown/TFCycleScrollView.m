@@ -63,13 +63,15 @@ static int const TFSection = 100;
     self.flowLayout = flowLayout;
     TFCollectionView.pagingEnabled = YES;
     TFCollectionView.showsHorizontalScrollIndicator = NO;
+    TFCollectionView.showsVerticalScrollIndicator = NO;
+    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     
     [self.TFCollectionView registerClass:[TFCycleScrollCell class] forCellWithReuseIdentifier:identifier];
     
     //init pagecontrol
     UIPageControl *pageControl = [[UIPageControl alloc]init];
     self.pageControl = pageControl;
-    [self addSubview:pageControl];
+//    [self addSubview:pageControl];
 }
 
 -(void)layoutSubviews
@@ -81,9 +83,9 @@ static int const TFSection = 100;
     self.flowLayout.itemSize = self.frame.size; //CGSizeMake(self.frame.size.width, imgH);
     self.flowLayout.minimumLineSpacing = 0;
     self.flowLayout.minimumInteritemSpacing = 0;
-    self.flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+//    self.flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
-    [self.TFCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:TFSection / 2] atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
+    [self.TFCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:TFSection / 2] atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
     
     [self addTimer];
     
@@ -149,7 +151,8 @@ static int const TFSection = 100;
     NSMutableArray *images = [NSMutableArray array];
     for (int i = 0; i < imgsArray.count; i++) {
         TFCycleScrollModel *model = [[TFCycleScrollModel alloc]init];
-        model.imgUrl = imgsArray[i];
+//        model.imgUrl = imgsArray[i];
+        model.tittle = imgsArray[i];
         [images addObject:model];
     }
     self.dataArray = images;
@@ -182,7 +185,7 @@ static int const TFSection = 100;
     NSIndexPath *currentIndexPath = [[self.TFCollectionView indexPathsForVisibleItems] lastObject];
     // 马上显示回最中间那组的数据
     NSIndexPath *currentIndexPathReset = [NSIndexPath indexPathForItem:currentIndexPath.item inSection:TFSection/2];
-    [self.TFCollectionView scrollToItemAtIndexPath:currentIndexPathReset atScrollPosition:UICollectionViewScrollPositionLeft animated:NO];
+    [self.TFCollectionView scrollToItemAtIndexPath:currentIndexPathReset atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
     return currentIndexPathReset;
 }
 
@@ -199,7 +202,7 @@ static int const TFSection = 100;
     }
     
     NSIndexPath *nextIndexPath = [NSIndexPath indexPathForItem:nextItem inSection:nextSection];
-    [self.TFCollectionView scrollToItemAtIndexPath:nextIndexPath atScrollPosition:UICollectionViewScrollPositionLeft animated:YES];
+    [self.TFCollectionView scrollToItemAtIndexPath:nextIndexPath atScrollPosition:UICollectionViewScrollPositionBottom animated:YES];
     
     self.pageControl.currentPage = nextItem;
 }
